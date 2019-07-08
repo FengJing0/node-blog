@@ -2,6 +2,8 @@ const qs = require('querystring')
 const handleBlogRouter = require('./src/router/blog')
 const handleUserRouter = require('./src/router/user')
 
+const { access } = require('./src/utils/log')
+
 const SESSION_DATA = {}
 
 const getPostData = req => {
@@ -36,6 +38,8 @@ const getCookieExpires = () => {
 }
 
 const serverHandle = (req, res) => {
+  access(`${req.method} -- ${req.url} -- ${req.headers['user-agent']} -- ${Date.now()}`)
+
   res.setHeader('Content-Type', 'application/json')
 
   const { url } = req
@@ -68,7 +72,7 @@ const serverHandle = (req, res) => {
     SESSION_DATA[userId] = {}
   }
   req.session = SESSION_DATA[userId]
-  console.log(SESSION_DATA)
+  // console.log(SESSION_DATA)
 
   // 处理postData
   getPostData(req).then(postData => {
