@@ -21,7 +21,7 @@ const handleBlogRouter = (req, res) => {
       if (loginCheckResult) {
         return loginCheckResult
       }
-      author = res.session.username
+      author = req.session.username
     }
     
     const result = getList(author, keyword)

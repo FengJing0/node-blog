@@ -15,9 +15,10 @@ function exec (sql) {
       resolve(result)
     })
   })
-
+  
 }
 
 module.exports = {
-  exec
+  exec,
+  escape:mysql.escape
 }
